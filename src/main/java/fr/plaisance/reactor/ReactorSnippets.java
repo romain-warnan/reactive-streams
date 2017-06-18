@@ -1,5 +1,7 @@
 package fr.plaisance.reactor;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 
 import java.util.Arrays;
@@ -19,15 +21,25 @@ public class ReactorSnippets {
             "dog"
     );
 
-    public static void main(String[] args) {
+    @AfterEach
+    void afterEach(){
+        System.out.println();
+    }
+
+    @Test
+    void just() {
         Flux<String> fewWords = Flux.just("Hello", "World");
-        Flux<String> manyWords = Flux.fromIterable(words);
-
         fewWords.subscribe(System.out::println);
-        System.out.println();
-        manyWords.subscribe(System.out::println);
+    }
 
-        System.out.println();
+    @Test
+    void fromIterable() {
+        Flux<String> manyWords = Flux.fromIterable(words);
+        manyWords.subscribe(System.out::println);
+    }
+
+    @Test
+    void findingMissingLetter() {
         Flux<String> manyLetters = Flux
                 .fromIterable(words)
                 .flatMap(word -> Flux.fromArray(word.split("")))
