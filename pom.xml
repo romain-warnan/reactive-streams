@@ -24,12 +24,12 @@
         <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-core</artifactId>
-            <version>3.0.3.RELEASE</version>
+            <version>3.0.7.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>RELEASE</version>
+            <version>5.0.0-M4</version>
         </dependency>
     </dependencies>
 </project>
