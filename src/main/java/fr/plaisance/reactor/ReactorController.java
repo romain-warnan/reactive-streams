@@ -1,10 +1,10 @@
 package fr.plaisance.reactor;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerSentEvent;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -13,7 +13,7 @@ import java.time.Duration;
 /**
  * https://github.com/sdeleuze/spring-reactive-playground/blob/master/src/main/java/playground/SseController.java
  * */
-@RestController
+@Controller
 public class ReactorController {
 
     private ReactiveLibrary reactiveLibrary;
@@ -38,19 +38,9 @@ public class ReactorController {
     }
 
 
-    @GetMapping(value = "logs/{size}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "logs/{size}", produces = "text/event-stream;charset=UTF-8")
+    @ResponseBody
     Flux<ServerSentEvent<String>> logs(@PathVariable Integer size) {
         return reactiveLibrary.logs(size);
-    }
-
-    @GetMapping(value = "/events", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    Flux<ServerSentEvent<String>> events() {
-        return Flux
-                .interval(Duration.ofSeconds(1))
-                .map(millis -> ServerSentEvent
-                        .builder("foo\nbar")
-                        .comment("bar\nbaz")
-                        .id(Long.toString(millis))
-                        .build());
     }
 }
