@@ -1,0 +1,4 @@
+#logs ul, #logs li {
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    list-style-type: none;
+}

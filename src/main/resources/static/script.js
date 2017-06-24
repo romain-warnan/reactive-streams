@@ -1,6 +1,6 @@
 const logs = document.querySelector('#logs')
 
-const eventSource = new EventSource('logs/10')
+const eventSource = new EventSource('logs/30')
 
 eventSource.onmessage = event => {
     const element = document.createElement('li')
