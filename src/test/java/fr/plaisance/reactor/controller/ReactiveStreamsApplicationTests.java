@@ -1,4 +1,4 @@
-package fr.plaisance.reactor;
+package fr.plaisance.reactor.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

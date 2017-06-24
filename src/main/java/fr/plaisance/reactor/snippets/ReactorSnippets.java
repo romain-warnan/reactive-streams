@@ -1,4 +1,4 @@
-package fr.plaisance.reactor;
+package fr.plaisance.reactor.snippets;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

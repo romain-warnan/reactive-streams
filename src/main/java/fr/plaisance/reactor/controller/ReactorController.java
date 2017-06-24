@@ -1,5 +1,6 @@
-package fr.plaisance.reactor;
+package fr.plaisance.reactor.controller;
 
+import fr.plaisance.reactor.converter.FluxConverter;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,19 +8,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import fr.plaisance.reactor.service.LogService;
 
 import java.time.Duration;
 
-/**
- * https://github.com/sdeleuze/spring-reactive-playground/blob/master/src/main/java/playground/SseController.java
- * */
 @Controller
 public class ReactorController {
 
-    private ReactiveLibrary reactiveLibrary;
+    private LogService logService;
 
-    ReactorController(ReactiveLibrary reactiveLibrary) {
-        this.reactiveLibrary = reactiveLibrary;
+    ReactorController(LogService logService) {
+        this.logService = logService;
     }
 
     @GetMapping("hello/{name}")
@@ -41,6 +40,6 @@ public class ReactorController {
     @GetMapping(value = "logs/{size}", produces = "text/event-stream;charset=UTF-8")
     @ResponseBody
     Flux<ServerSentEvent<String>> logs(@PathVariable Integer size) {
-        return reactiveLibrary.logs(size);
+        return FluxConverter.sseFlux(logService.logs(size));
     }
 }
